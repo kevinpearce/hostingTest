@@ -21,7 +21,7 @@ jobs:
           dotnet-version: 8.0.x
 
       - name: Publish Blazor WebAssembly app
-        run: dotnet publish HostingTest.csproj -c Release -o release
+        run: dotnet publish ./HostingTest/HostingTest.csproj -c Release -o release
 
       - name: Upload static files as artifact
         id: deployment
