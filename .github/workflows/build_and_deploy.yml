@@ -1,7 +1,7 @@
 name: Build and Deploy
 
 on:
-  pull_request:
+  push:
     branches:
       - main
 
@@ -27,7 +27,7 @@ jobs:
         id: deployment
         uses: actions/upload-pages-artifact@v3
         with:
-          path: build_outputs_folder/
+          path: ./release/wwwroot
 
 #  deploy:
 #    needs: build
