@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HostingTest", "HostingTest\HostingTest.csproj", "{48039AB0-4EA9-406F-AEB4-80C30241C64E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{48039AB0-4EA9-406F-AEB4-80C30241C64E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48039AB0-4EA9-406F-AEB4-80C30241C64E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48039AB0-4EA9-406F-AEB4-80C30241C64E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48039AB0-4EA9-406F-AEB4-80C30241C64E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
