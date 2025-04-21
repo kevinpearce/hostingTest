@@ -1,10 +1,13 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using HostingTest;
+using HostingTest.Models;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
+
+builder.Services.AddOptions<List<Document>>().Bind(builder.Configuration.GetSection("Document"));
 
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
