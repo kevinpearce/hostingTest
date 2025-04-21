@@ -8,6 +8,7 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
 builder.Services.AddOptions<List<Document>>().Bind(builder.Configuration.GetSection("Document"));
+builder.Services.AddOptions<List<Person>>().Bind(builder.Configuration.GetSection("People"));
 
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
