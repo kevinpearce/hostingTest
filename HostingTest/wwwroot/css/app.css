@@ -101,3 +101,8 @@ a, .btn-link {
 code {
     color: #c02d76;
 }
+
+.pre-padding {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
