@@ -1,8 +1,19 @@
 @page "/about"
 
+@inject HttpClient Http
+
 <PageTitle>About</PageTitle>
 
 <div class="text-center">
     <h1>About</h1>
-    <pre class="pre-padding" style="white-space: pre-wrap;">@Content.AboutContent.AboutParagraph</pre>
+    <pre class="pre-padding" style="white-space: pre-wrap;">@_aboutText</pre>
 </div>
+
+@code {
+    private string? _aboutText;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _aboutText = await Http.GetStringAsync("content/about.txt");
+    }
+}

@@ -1,8 +1,19 @@
 @page "/schedule"
 
+@inject HttpClient Http
+
 <PageTitle>Schedule</PageTitle>
 
 <div class="text-center">
     <h1>Schedule</h1>
-    <pre class="pre-padding" style="white-space: pre-wrap;">@Content.ScheduleContent.ScheduleParagraph</pre>
+    <pre class="pre-padding" style="white-space: pre-wrap;">@_scheduleText</pre>
 </div>
+
+@code {
+    private string? _scheduleText;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _scheduleText = await Http.GetStringAsync("content/schedule.txt");
+    }
+}

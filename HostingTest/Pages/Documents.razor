@@ -3,12 +3,13 @@
 @using Microsoft.Extensions.Options
 
 @inject IOptions<List<Document>> DocumentOptions
+@inject HttpClient Http
 
 <PageTitle>Documents</PageTitle>
 
 <div class="text-center">
     <h1>Documents</h1>
-    <pre class="pre-padding" style="white-space: pre-wrap;">@Content.DocumentsContent.DocumentsParagraph</pre>
+    <pre class="pre-padding" style="white-space: pre-wrap;">@_documentText</pre>
 
     <div class="mx-auto" style="width: 70%;">
         <table class="table table-bordered">
@@ -38,9 +39,11 @@
 
 @code {
     private List<Document> _documentList = null!;
+    private string? _documentText;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         _documentList = DocumentOptions.Value;
+        _documentText = await Http.GetStringAsync("content/documents.txt");
     }
 }
