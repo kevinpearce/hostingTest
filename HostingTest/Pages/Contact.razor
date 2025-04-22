@@ -3,13 +3,12 @@
 @using Microsoft.Extensions.Options
 
 @inject IOptions<List<Person>> PeopleOptions
-@inject HttpClient Http
 
 <PageTitle>Contact</PageTitle>
 
 <div class="text-center">
     <h1>Contact</h1>
-    <pre class="pre-padding" style="white-space: pre-wrap;">@_contactText</pre>
+    <pre class="pre-padding" style="white-space: pre-wrap;">@Content.ContactsContent.ContactsParagraph</pre>
 
     <div class="container">
         <div class="row">
@@ -41,11 +40,9 @@
 
 @code {
     private List<Person> _personList = null!;
-    private string? _contactText;
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         _personList = PeopleOptions.Value;
-        _contactText = await Http.GetStringAsync("content/contact.txt");
     }
 }
