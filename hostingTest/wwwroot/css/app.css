@@ -106,3 +106,8 @@ code {
     padding-top: 20px;
     padding-bottom: 20px;
 }
+
+.social-icons {
+    display: flex;
+    gap: 1rem;
+}
