@@ -22,6 +22,12 @@ jobs:
 
       - name: Publish Blazor WebAssembly app
         run: dotnet publish ./HostingTest/HostingTest.csproj -c Release -o release
+        
+      - name: Update Base Url in index.html
+        run: sed -i 's/<base href="\/" \/>/<base href="\/hostingTest\/" \/>/g' release/wwwroot/index.html
+
+      - name: Copy index.html to 404.html - GitHub Pages routing workaround
+        run: cp release/wwwroot/index.html release/wwwroot/404.html
 
       - name: Upload static files as artifact
         id: deployment
