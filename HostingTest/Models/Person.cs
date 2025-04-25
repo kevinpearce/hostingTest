@@ -1,4 +1,4 @@
-namespace HostingTest.Models;
+namespace hostingTest.Models;
 
 public class Person
 {

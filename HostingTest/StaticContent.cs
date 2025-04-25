@@ -1,4 +1,4 @@
-namespace HostingTest;
+namespace hostingTest;
 
 public static class StaticContent
 {
