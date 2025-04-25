@@ -4,5 +4,13 @@
 
 <div class="text-center">
     <h1>Schedule</h1>
-    <pre class="pre-padding" style="white-space: pre-wrap;">@StaticContent.Schedule</pre>
+    <pre class="pre-padding" style="white-space: pre-wrap;">@ScheduleBlurb</pre>
 </div>
+
+@code
+{
+    private const string ScheduleBlurb = 
+        "We meet every Tuesday at 6:00 PM in the main conference room" + "\n" +
+        "The meeting is open to all members and interested parties" + "\n" +
+        "Other meetings may be scheduled as needed - see Social Media for updates";
+}

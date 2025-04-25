@@ -4,5 +4,13 @@
 
 <div class="text-center">
     <h1>About</h1>
-    <pre class="pre-padding" style="white-space: pre-wrap;">@StaticContent.About</pre>
+    <pre class="pre-padding" style="white-space: pre-wrap;">@AboutBlurb</pre>
 </div>
+
+@code 
+{
+    private const string AboutBlurb =
+        "We were founded in xxxxxxxx" + "\n" +
+        "We believe in xxxxxxx" + "\n" +
+        "Our mission is to xxxxxxx";
+}

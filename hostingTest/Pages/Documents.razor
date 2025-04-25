@@ -8,7 +8,7 @@
 
 <div class="text-center">
     <h1>Documents</h1>
-    <pre class="pre-padding" style="white-space: pre-wrap;">@StaticContent.Documents</pre>
+    <pre class="pre-padding" style="white-space: pre-wrap;">@DocumentsBlurb</pre>
 
     <div class="mx-auto" style="width: 70%;">
         <table class="table table-bordered">
@@ -38,6 +38,9 @@
 
 @code {
     private List<Document> _documentList = null!;
+    
+    private const string DocumentsBlurb =
+        "Please find below all documents/forms related to our organization";
 
     protected override void OnInitialized()
     {

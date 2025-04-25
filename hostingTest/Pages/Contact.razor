@@ -8,7 +8,7 @@
 
 <div class="text-center">
     <h1>Contact</h1>
-    <pre class="pre-padding" style="white-space: pre-wrap;">@StaticContent.Contact</pre>
+    <pre class="pre-padding" style="white-space: pre-wrap;">@ContactBlurb</pre>
 
     <div class="container">
         <div class="row">
@@ -40,6 +40,10 @@
 
 @code {
     private List<Person> _personList = null!;
+    
+    private const string ContactBlurb =
+        "Although the organisation maintains a Social Media presence, we do not use it for official communication" + "\n" +
+        "Please find below all contacts related to positions within our commitee";
 
     protected override void OnInitialized()
     {
