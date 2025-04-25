@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HostingTest", "HostingTest\HostingTest.csproj", "{48039AB0-4EA9-406F-AEB4-80C30241C64E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hostingTest", "hostingTest\hostingTest.csproj", "{48039AB0-4EA9-406F-AEB4-80C30241C64E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
