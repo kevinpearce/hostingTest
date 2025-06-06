@@ -1,4 +1,5 @@
 ﻿using hostingTest.PlaywrightTests.Models;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Playwright;
 using Microsoft.Playwright.NUnit;
 
@@ -6,12 +7,21 @@ namespace hostingTest.PlaywrightTests;
 
 public class DocumentsPageTests : PageTest
 {
+    private IConfigurationRoot _config;
     private IPage _documentsPage;
+
+    [OneTimeSetUp]
+    public void OneTimeSetUp()
+    {
+        _config = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json")
+            .Build();
+    }
     
     [SetUp]
     public async Task SetUp()
     {
-        var documentsPage = new DocumentsPage(await Browser.NewPageAsync());
+        var documentsPage = new DocumentsPage(await Browser.NewPageAsync(), _config);
         await documentsPage.GoToPageAsync();
 
         _documentsPage = documentsPage.Page;
