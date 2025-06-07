@@ -38,7 +38,9 @@ jobs:
         run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
         
       - name: Start local server
-        run: dotnet-serve -d build/wwwroot -p 5000 --quiet sleep 5
+        run: |
+          dotnet-serve -d build/wwwroot -p 5000 --quiet &
+          sleep 5
 
       - name: Install Playwright browsers
         run: pwsh -c "Playwright install"
