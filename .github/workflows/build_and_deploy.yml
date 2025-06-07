@@ -34,10 +34,11 @@ jobs:
       - name: Install dotnet-serve
         run: dotnet tool install --global dotnet-serve
 
+      - name: Add .NET tools to PATH
+        run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+        
       - name: Start local server
         run: dotnet-serve -d build/wwwroot -p 5000 --quiet sleep 5
-        env:
-          PATH: $PATH:$HOME/.dotnet/tools
 
       - name: Install Playwright browsers
         run: pwsh -c "Playwright install"
