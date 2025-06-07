@@ -40,10 +40,10 @@ jobs:
       - name: Install Playwright Chromium Browser
         run: npx playwright install chromium --with-deps
 
-      - name: Run Playwright UI tests
-        run: dotnet test ./${{ env.REPO_NAME }}/${{ env.REPO_NAME }}.PlaywrightTests.csproj
-#        env:
-#          BaseUrl: http://localhost:5000
+      - name: Run Tests
+        run: dotnet test -- TestSettings__RootPagePath=http://localhost:5000
+        
+        #./${{ env.REPO_NAME }}/${{ env.REPO_NAME }}.PlaywrightTests.csproj -- TestSettings__RootPagePath=http://localhost:5000
   
   package:
     needs: build
