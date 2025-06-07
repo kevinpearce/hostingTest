@@ -41,26 +41,19 @@ jobs:
         run: npx playwright install chromium --with-deps
 
       - name: Run Tests
-        run: dotnet test -- TestSettings__RootPagePath=http://localhost:5000
+        run: dotnet test -- TestSettings__RootPagePath=http://localhost:5001
         
-        #./${{ env.REPO_NAME }}/${{ env.REPO_NAME }}.PlaywrightTests.csproj -- TestSettings__RootPagePath=http://localhost:5000
+      - name: Update Base Url in index.html - Local Dev workaround
+        run: sed -i 's/<base href="\/" \/>/<base href="\/${{ env.REPO_NAME }}\/" \/>/g' release/wwwroot/index.html
   
-  package:
-    needs: build
-    runs-on: ubuntu-latest
-      
-    steps:
-    - name: Update Base Url in index.html - Local Dev workaround
-      run: sed -i 's/<base href="\/" \/>/<base href="\/${{ env.REPO_NAME }}\/" \/>/g' release/wwwroot/index.html
-
-    - name: Copy index.html to 404.html - GitHub Pages routing workaround
-      run: cp release/wwwroot/index.html release/wwwroot/404.html
-
-    - name: Upload static files as artifact
-      id: deployment
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: ./release/wwwroot
+      - name: Copy index.html to 404.html - GitHub Pages routing workaround
+        run: cp release/wwwroot/index.html release/wwwroot/404.html
+  
+      - name: Upload static files as artifact
+        id: deployment
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./release/wwwroot
 
 #  deploy:
 #    needs: package
