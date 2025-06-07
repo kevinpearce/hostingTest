@@ -43,7 +43,7 @@ jobs:
       - name: Run Tests
         run: dotnet test
         env:
-          TestSettings__RootPagePath: http://localhost:5001
+          TestSettings__RootPagePath: http://localhost:5000
         
       - name: Update Base Url in index.html - Local Dev workaround
         run: sed -i 's/<base href="\/" \/>/<base href="\/${{ env.REPO_NAME }}\/" \/>/g' release/wwwroot/index.html
