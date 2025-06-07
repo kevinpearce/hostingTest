@@ -34,7 +34,7 @@ jobs:
         
       - name: Start local server
         run: |
-          dotnet-serve -d release/wwwroot -p 5000 --quiet &
+          dotnet-serve -d release/wwwroot -p 5000 &
           sleep 5
 
       - name: Verify site is running
