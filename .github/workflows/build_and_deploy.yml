@@ -25,32 +25,59 @@ jobs:
 
       - name: Publish Blazor WebAssembly app
         run: dotnet publish ./${{ env.REPO_NAME }}/${{ env.REPO_NAME }}.csproj -c Release -o release
-        
-      - name: Update Base Url in index.html - Local Dev workaround
-        run: sed -i 's/<base href="\/" \/>/<base href="\/${{ env.REPO_NAME }}\/" \/>/g' release/wwwroot/index.html
-
-      - name: Copy index.html to 404.html - GitHub Pages routing workaround
-        run: cp release/wwwroot/index.html release/wwwroot/404.html
-
-      - name: Upload static files as artifact
-        id: deployment
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./release/wwwroot
-
-  deploy:
+  
+  test:
     needs: build
     runs-on: ubuntu-latest
-
-    permissions:
-      pages: write
-      id-token: write
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
+    
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Install dotnet-serve
+        run: dotnet tool install --global dotnet-serve
+
+      - name: Start local server
+        run: dotnet-serve -d build/wwwroot -p 5000 --quiet sleep 5
+        env:
+          PATH: $PATH:$HOME/.dotnet/tools
+
+      - name: Install Playwright browsers
+        run: pwsh -c "Playwright install"
+
+      - name: Run Playwright UI tests
+        run: dotnet test ${{ env.REPO_NAME }}/${{ env.REPO_NAME }}.PlaywrightTests.csproj
+        env:
+          BaseUrl: http://localhost:5000
+          PATH: $PATH:$HOME/.dotnet/tools
+  
+  package:
+    needs: test
+    runs-on: ubuntu-latest
+      
+    steps:
+    - name: Update Base Url in index.html - Local Dev workaround
+      run: sed -i 's/<base href="\/" \/>/<base href="\/${{ env.REPO_NAME }}\/" \/>/g' release/wwwroot/index.html
+
+    - name: Copy index.html to 404.html - GitHub Pages routing workaround
+      run: cp release/wwwroot/index.html release/wwwroot/404.html
+
+    - name: Upload static files as artifact
+      id: deployment
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: ./release/wwwroot
+
+#  deploy:
+#    needs: package
+#    runs-on: ubuntu-latest
+#
+#    permissions:
+#      pages: write
+#      id-token: write
+#
+#    environment:
+#      name: github-pages
+#      url: ${{ steps.deployment.outputs.page_url }}
+#
+#    steps:
+#      - name: Deploy to GitHub Pages
+#        id: deployment
+#        uses: actions/deploy-pages@v4
