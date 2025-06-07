@@ -53,6 +53,19 @@ jobs:
       - name: Install Playwright Chromium Browser
         run: npx playwright install chromium --with-deps
 
+      - name: Verify site is still running
+        run: |
+          for i in {1..10}; do
+            if curl -sSf http://localhost:5000 > /dev/null; then
+              echo "Site is still up!"
+              exit 0
+            fi
+            echo "Waiting for site..."
+            sleep 2
+          done
+          echo "Site did not start in time"
+          exit 1
+          
       - name: Run Tests
         run: dotnet test
         env:
