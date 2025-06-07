@@ -39,11 +39,11 @@ jobs:
         
       - name: Start local server
         run: |
-          dotnet-serve -d build/wwwroot -p 5000 --quiet &
+          dotnet-serve -d release/wwwroot -p 5000 --quiet &
           sleep 5
 
       - name: Install Playwright browsers
-        run: pwsh -c "Playwright install"
+        run: dotnet playwright install --project ${{ env.REPO_NAME }}/${{ env.REPO_NAME }}.PlaywrightTests.csproj
 
       - name: Run Playwright UI tests
         run: dotnet test ${{ env.REPO_NAME }}/${{ env.REPO_NAME }}.PlaywrightTests.csproj
