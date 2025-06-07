@@ -38,7 +38,7 @@ jobs:
           sleep 5
 
       - name: Install Playwright browsers
-        run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
+        run: pwsh bin/Release/net8.0/playwright.ps1 install --with-deps
 
       - name: Run Playwright UI tests
         run: dotnet test ${{ env.REPO_NAME }}/${{ env.REPO_NAME }}.PlaywrightTests.csproj
