@@ -1,15 +1,15 @@
-name: Build and Test
+name: Build and Deploy
 
 on:
   workflow_dispatch:
   pull_request:
     branches:
       - main
-    
+
 env:
   REPO_NAME: ${{ github.event.repository.name }}
 
-jobs:   
+jobs:
   build:
     runs-on: ubuntu-latest
     
@@ -24,7 +24,7 @@ jobs:
 
       - name: Publish Blazor WebAssembly app
         run: dotnet publish ./${{ env.REPO_NAME }}/${{ env.REPO_NAME }}.csproj -c Release -o release
-        
+
       - name: Update Base Url in index.html - Local Dev workaround
         run: sed -i 's/<base href="\/" \/>/<base href="\/${{ env.REPO_NAME }}\/" \/>/g' release/wwwroot/index.html
 
@@ -32,6 +32,27 @@ jobs:
         run: cp release/wwwroot/index.html release/wwwroot/404.html
 
       - name: Upload static files as artifact
+        id: deployment
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./release/wwwroot
+
+  deploy:
+    if: |
+      (github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true) ||
+      github.event_name == 'workflow_dispatch'
+    needs: build
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
