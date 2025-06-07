@@ -15,6 +15,7 @@ public class DocumentsPageTests : PageTest
     {
         _config = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json")
+            .AddEnvironmentVariables()
             .Build();
     }
     
